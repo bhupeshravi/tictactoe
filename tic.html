@@ -1,6 +1,8 @@
+<!doctype html>
 <html>
 <head>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <script type="text/javascript" src="jquery.min.js"></script>
 
 
 <style>
@@ -18,6 +20,7 @@ button{
     background-color: purple; /* Green */
     border: none;
     color: white;
+    cursor: pointer;
     padding: 10px 25px;
     text-align: center;
     text-decoration: none;
@@ -154,7 +157,7 @@ th:hover{
     <span class="helper"></span>
     <div>
         <div class="popupCloseButton">&times;</div>
-        <p><b>Welcome to Tic Tac Toe<br />Are you failiar with the rules?</b></p>
+        <p style="padding-bottom: 15px;"><b>Welcome to Tic Tac Toe<br />Are you failiar with the rules?</b></p>
         <p id="rules" style="display: none;text-align: justify;">The game is played on a grid that's 3 squares by 3 squares.<br /><br />
             You are X, your friend (or the computer in this case) is O. Players take turns putting their marks in empty squares. <br /><br />
             The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner. <br /><br />

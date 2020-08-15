@@ -17,7 +17,7 @@ p{
 }
 button{
     margin: 20px;
-    background-color: purple; /* Green */
+    background-color: purple;
     border: none;
     color: white;
     cursor: pointer;
@@ -27,7 +27,7 @@ button{
     display: inline-block;
     font-size: 16px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px 1px black
+    box-shadow: 0px 0px 10px 1px black;
 }
 
 table td, table th {
@@ -135,7 +135,7 @@ th:hover{
             mycomp();
         }
         else{
-            alert("already filled, try another box")
+            alert("Box taken, try another box")
         }
     }
 
@@ -372,6 +372,11 @@ th:hover{
             }
         }
 
+        var table = document.getElementById('tictactoetab').textContent
+        table = table.replace(/(\r\n|\n|\r)/gm, "");
+        table = table.replace(/ /g,'');
+
+
         if(table.length == 9){
             alert("It's a Draw! Let's play again...")
             location.reload()
@@ -390,7 +395,7 @@ function funstart(){
 
     var random = Math.floor(Math.random() * list_random.length);
 
-    if(random == 0){
+    if(random == 1){
         document.getElementById('comp').textContent = "Computer starts first"
         document.getElementById('r2c2').textContent = "X"
     }
@@ -399,6 +404,30 @@ function funstart(){
     }
 }
 
+function fncheck(){
+    if(document.getElementById('rules').style.display == 'block'){
+        document.getElementById('intro').style.display='none';
+        document.getElementById('rules').style.display='none';
+        document.getElementById('qn2').textContent='Thank you, Bye!';
+        document.getElementById('yesbtn1').style.cursor='not-allowed';
+        document.getElementById('yesbtn1').disabled=true;
+        document.getElementById('yesbtn1').style.backgroundColor='slategrey';
+        document.getElementById('yesbtn1').style.boxShadow='none';
+
+    }
+    else{
+        document.getElementById('intro').style.display='block';
+        document.getElementById('rules').style.display='block';
+        document.getElementById('qn1').style.display='none';
+        document.getElementById('qn2').style.fontWeight='bold';
+        document.getElementById('qn2').textContent='Shall we proceed now?';
+        document.getElementById('yesbtn1').style.cursor='pointer';
+        document.getElementById('yesbtn1').disabled=false;
+        document.getElementById('yesbtn1').style.backgroundColor='purple';
+        document.getElementById('yesbtn1').style.boxShadow='0px 0px 10px 1px black';
+        
+    }
+}
 
 </script>
 </head>
@@ -413,14 +442,20 @@ function funstart(){
     <span class="helper"></span>
     <div>
         <!-- <div class="popupCloseButton">&times;</div> -->
-        <p style="padding-bottom: 15px;"><b>Welcome to Tic Tac Toe<br /><br />Are you failiar with the rules?</b></p>
-        <p id="rules" style="display: none;text-align: justify;"><b>Instructions:</b><br />The game is played on a grid that's 3 squares by 3 squares.<br /><br />
-            You are 'O', your friend (or the computer in this case) is 'X'. Players take turns putting their marks in empty squares. <br /><br />
-            The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner. <br /><br />
-            When all 9 squares are full, the game is over.</p>
+        <p id="intro" style="padding-bottom: 15px; font-size: x-large;"><b>Welcome to Tic Tac Toe</b></p>
+        <p id="qn1" style="padding-bottom: 15px;"><b>Are you familiar with the rules?</b></p>
+        <div id="rules" style="display: none;text-align: justify;font-family: cursive;"><b>Instructions:</b>
+            <ul>
+                <li>The game is played on a grid that's 3 squares by 3 squares.</li>
+                <li>You are 'O', your friend (or the computer in this case) is 'X'. Players take turns putting their marks in empty squares.</li>
+                <li>The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.</li>
+                <li>When all 9 squares are full, the game is over.</li>
+            </ul>
 
-    <button onclick="funstart()">Yes</button> 
-    <button onclick="document.getElementById('rules').style.display='block'">No</button>
+        </div>
+    <p id="qn2"></p>
+    <button id="yesbtn1" onclick="funstart()">Yes</button> 
+    <button id="nobtn" onclick="fncheck()">No</button>
     </div>
 </div>
 

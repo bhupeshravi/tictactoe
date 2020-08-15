@@ -29,26 +29,37 @@ button{
     border-radius: 10px;
     box-shadow: 0px 0px 10px 1px black
 }
-#tictactoetab{
-    margin-left: auto;
-    box-shadow: 5px 5px 10px -5px black;
-    margin-right: auto;
-    top:40%;
-    left:41%;
-    position: fixed;
+
+table td, table th {
+    border: 5px solid mediumpurple;
+    padding: 30px;
 }
-table, th {  
-  border: 1px solid #ddd;
+table tr:first-child th {
+  border-top: 0;
+}
+table tr:last-child th {
+  border-bottom: 0;
+}
+table tr th:first-child {
+  border-left: 0;
+}
+table tr th:last-child {
+  border-right: 0;
 }
 
 table {
+  margin-top: 20px;
   border-collapse: collapse;
+  margin-left: auto;
+  /* box-shadow: 5px 5px 10px -5px black; */
+  margin-right: auto;
+  /* top:40%; */
+  left:41%;
+  position: unset;
   width: 18%;
+  border: 0;
 }
 
-th {
-  padding: 30px;
-}
 th:hover{
     background-color: lightgrey;
     cursor: pointer;
@@ -115,8 +126,6 @@ th:hover{
 /* Popup box BEGIN */
 </style>
 
-
-
 <script>
     function myfun(obj) {
         if(obj.textContent == ''){
@@ -129,11 +138,274 @@ th:hover{
     }
 
     function mycomp(){
-        if(document.getElementById('r1c1').textContent == 'O'){
-            if(document.getElementById('r1c2').textContent == 'O' || document.getElementById('r2c1').textContent == 'O' || document.getElementById('r2c2').textContent == 'O'){
+
+        // check for completion
+        var table = document.getElementById('tictactoetab').textContent
+        table = table.replace(/(\r\n|\n|\r)/gm, "");
+        table = table.replace(/ /g,'');
+        if(table.length == 9){
+            alert("New game?")
+            location.reload()
+        }
+
+
+
+
+
+        // check winning...
+        if((document.getElementById('r1c1').textContent == 'O' & document.getElementById('r1c2').textContent == 'O' & document.getElementById('r1c3').textContent == 'O') || (document.getElementById('r2c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r2c3').textContent == 'O') || (document.getElementById('r3c1').textContent == 'O' & document.getElementById('r3c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O') || (document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O') || (document.getElementById('r3c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r1c3').textContent == 'O') || (document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c1').textContent == 'O' & document.getElementById('r3c1').textContent == 'O') || (document.getElementById('r1c2').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c2').textContent == 'O') || (document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c3').textContent == 'O' & document.getElementById('r3c3').textContent == 'O')){
+            alert("You won!")
+            location.reload()
+        }
+        else if(table.length == 9){
+            alert("It's a Draw! Let's play again...")
+            location.reload()
+        }
+
+        // Winning move
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r1c2').textContent == 'X' & document.getElementById('r1c3').textContent == ''){
+            document.getElementById('r1c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c1').textContent == 'X' & document.getElementById('r3c1').textContent == ''){
+            document.getElementById('r3c1').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r1c2').textContent == '' & document.getElementById('r1c3').textContent == 'X'){
+            document.getElementById('r1c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r2c2').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c1').textContent == '' & document.getElementById('r3c1').textContent == 'X'){
+            document.getElementById('r2c1').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r1c2').textContent == 'X' & document.getElementById('r1c3').textContent == 'X'){
+            document.getElementById('r1c1').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r1c1').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r2c1').textContent == 'X' & document.getElementById('r3c1').textContent == 'X'){
+            document.getElementById('r1c1').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c2').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c2').textContent == ''){
+            document.getElementById('r3c2').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c2').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c2').textContent == 'X'){
+            document.getElementById('r2c2').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c2').textContent == '' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c2').textContent == 'X'){
+            document.getElementById('r1c2').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c3').textContent == 'X' & document.getElementById('r2c3').textContent == 'X' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c3').textContent == 'X' & document.getElementById('r2c3').textContent == '' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r2c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c3').textContent == '' & document.getElementById('r2c3').textContent == 'X' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r1c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c3').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c1').textContent == ''){
+            document.getElementById('r3c1').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c3').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c1').textContent == 'X'){
+            document.getElementById('r2c2').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r1c3').textContent == '' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c1').textContent == 'X'){
+            document.getElementById('r1c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r2c1').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r2c3').textContent == ''){
+            document.getElementById('r2c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r2c1').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r2c3').textContent == 'X'){
+            document.getElementById('r2c2').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r2c1').textContent == '' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r2c3').textContent == 'X'){
+            document.getElementById('r2c1').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+
+        else if(document.getElementById('r3c1').textContent == 'X' & document.getElementById('r3c2').textContent == 'X' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r3c1').textContent == 'X' & document.getElementById('r3c2').textContent == '' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r3c2').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+        else if(document.getElementById('r3c1').textContent == '' & document.getElementById('r3c2').textContent == 'X' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r3c1').textContent = 'X'; alert("Computer Won!");
+            location.reload()
+        }
+
+
+
+
+        // blocking move
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r1c2').textContent == 'O' & document.getElementById('r1c3').textContent == ''){
+            document.getElementById('r1c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c1').textContent == 'O' & document.getElementById('r3c1').textContent == ''){
+            document.getElementById('r3c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r1c2').textContent == '' & document.getElementById('r1c3').textContent == 'O'){
+            document.getElementById('r1c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r2c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c1').textContent == '' & document.getElementById('r3c1').textContent == 'O'){
+            document.getElementById('r2c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r1c2').textContent == 'O' & document.getElementById('r1c3').textContent == 'O'){
+            document.getElementById('r1c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r1c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r2c1').textContent == 'O' & document.getElementById('r3c1').textContent == 'O'){
+            document.getElementById('r1c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c2').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c2').textContent == ''){
+            document.getElementById('r3c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c2').textContent == 'O' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c2').textContent == 'O'){
+            document.getElementById('r2c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c2').textContent == '' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c2').textContent == 'O'){
+            document.getElementById('r1c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c3').textContent == 'O' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c3').textContent == '' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r2c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == '' & document.getElementById('r2c3').textContent == 'O' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r1c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c1').textContent == ''){
+            document.getElementById('r3c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c1').textContent == 'O'){
+            document.getElementById('r2c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == '' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c1').textContent == 'O'){
+            document.getElementById('r1c3').textContent = 'X'
+        }
+        else if(document.getElementById('r2c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r2c3').textContent == ''){
+            document.getElementById('r2c3').textContent = 'X'
+        }
+        else if(document.getElementById('r2c1').textContent == 'O' & document.getElementById('r2c2').textContent == '' & document.getElementById('r2c3').textContent == 'O'){
+            document.getElementById('r2c2').textContent = 'X'
+        }
+        else if(document.getElementById('r2c1').textContent == '' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r2c3').textContent == 'O'){
+            document.getElementById('r2c1').textContent = 'X'
+        }
+
+        else if(document.getElementById('r3c1').textContent == 'O' & document.getElementById('r3c2').textContent == 'O' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'
+        }
+        else if(document.getElementById('r3c1').textContent == 'O' & document.getElementById('r3c2').textContent == '' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r3c2').textContent = 'X'
+        }
+        else if(document.getElementById('r3c1').textContent == '' & document.getElementById('r3c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r3c1').textContent = 'X'
+        }
+
+
+
+        else {
+            // Fill random
+            if(document.getElementById('r1c1').textContent == ''){
+                document.getElementById('r1c1').textContent = 'X'
+            }
+            else if(document.getElementById('r1c2').textContent == ''){
+                document.getElementById('r1c2').textContent = 'X'
+            }
+            else if(document.getElementById('r1c3').textContent == ''){
+                document.getElementById('r1c3').textContent = 'X'
+            }
+            else if(document.getElementById('r2c1').textContent == ''){
+                document.getElementById('r2c1').textContent = 'X'
+            }
+            else if(document.getElementById('r2c2').textContent == ''){
+                document.getElementById('r2c2').textContent = 'X'
+            }
+            else if(document.getElementById('r2c3').textContent == ''){
+                document.getElementById('r2c3').textContent = 'X'
+            }
+            else if(document.getElementById('r3c1').textContent == ''){
+                document.getElementById('r3c1').textContent = 'X'
+            }
+            else if(document.getElementById('r3c2').textContent == ''){
+                document.getElementById('r3c2').textContent = 'X'
+            }
+            else if(document.getElementById('r3c3').textContent == ''){
                 document.getElementById('r3c3').textContent = 'X'
             }
         }
+
+        
+
+
+        // if((document.getElementById('r1c1').textContent == 'X' & document.getElementById('r1c2').textContent == 'X' & document.getElementById('r1c3').textContent == 'X') || (document.getElementById('r2c1').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r2c3').textContent == 'X') || (document.getElementById('r3c1').textContent == 'X' & document.getElementById('r3c2').textContent == 'X' & document.getElementById('r3c3').textContent == 'X') || (document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c3').textContent == 'X') || (document.getElementById('r3c1').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r1c3').textContent == 'X') || (document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c1').textContent == 'X' & document.getElementById('r3c1').textContent == 'X') || (document.getElementById('r1c2').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c2').textContent == 'X') || (document.getElementById('r2c3').textContent == 'X' & document.getElementById('r2c3').textContent == 'X' & document.getElementById('r3c3').textContent == 'X')){
+        //     alert("Computer Won!")
+        // }
+        // else if((document.getElementById('r1c1').textContent == 'O' & document.getElementById('r1c2').textContent == 'O' & document.getElementById('r1c3').textContent == 'O') || (document.getElementById('r2c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r2c3').textContent == 'O') || (document.getElementById('r3c1').textContent == 'O' & document.getElementById('r3c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O') || (document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O') || (document.getElementById('r3c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r1c3').textContent == 'O') || (document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c1').textContent == 'O' & document.getElementById('r3c1').textContent == 'O') || (document.getElementById('r1c2').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c2').textContent == 'O') || (document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c3').textContent == 'O' & document.getElementById('r3c3').textContent == 'O')){
+        //     alert("You won!")
+        // }        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 </script>
 <script>
@@ -146,23 +418,41 @@ th:hover{
     // });
     $('.popupCloseButton').click(function(){
         $('.hover_bkgr_fricc').hide();
+        comp_play();
+
     });
 });
+
+
+
+
+function funstart(){
+    $('.hover_bkgr_fricc').hide();
+    document.getElementById('comp').textContent = "Its your turn"
+    document.getElementById('r2c2').textContent = "X"
+}
+
+
 </script>
 </head>
 
-
+<div class="main_body">
 <h1 id="title">Tic Tac Toe</h1>
+
+<p style="text-align: center; margin:25px;" id="comp"></p>
+
 <div class="hover_bkgr_fricc">
     <span class="helper"></span>
     <div>
         <div class="popupCloseButton">&times;</div>
-        <p style="padding-bottom: 15px;"><b>Welcome to Tic Tac Toe<br />Are you failiar with the rules?</b></p>
-        <p id="rules" style="display: none;text-align: justify;">The game is played on a grid that's 3 squares by 3 squares.<br /><br />
+        <p style="padding-bottom: 15px;"><b>Welcome to Tic Tac Toe<br /><br />Are you failiar with the rules?</b></p>
+        <p id="rules" style="display: none;text-align: justify;"><b>Instructions:</b><br />The game is played on a grid that's 3 squares by 3 squares.<br /><br />
             You are X, your friend (or the computer in this case) is O. Players take turns putting their marks in empty squares. <br /><br />
             The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner. <br /><br />
             When all 9 squares are full, the game is over.</p>
-    <button onclick="$('.hover_bkgr_fricc').hide();">Yes</button> <button onclick="document.getElementById('rules').style.display='block'">No</button>
+
+    <button onclick="funstart()">Yes</button> 
+    <button onclick="document.getElementById('rules').style.display='block'">No</button>
     </div>
 </div>
 
@@ -174,7 +464,7 @@ th:hover{
     </tr>
     <tr>
         <th id="r2c1" onclick="myfun(this)"></th>
-        <th id="r2c2" onclick="myfun(this)">X</th>
+        <th id="r2c2" onclick="myfun(this)"></th>
         <th id="r2c3" onclick="myfun(this)"></th>
     </tr>
     <tr>
@@ -183,7 +473,7 @@ th:hover{
         <th id="r3c3" onclick="myfun(this)"></th>
     </tr>
   </table>
-
+</div>
 
 </html>
 

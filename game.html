@@ -1,0 +1,508 @@
+<!doctype html>
+<html>
+    <title>Tic Tac Toe</title>
+<head>
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<script type="text/javascript" src="jquery.min.js"></script>
+
+
+<style>
+#title{
+    text-align: center;
+    margin: 25;
+    font-family: cursive;
+    font-size: xxx-large;
+}
+p{
+    font-family: cursive;
+}
+
+button{
+    margin: 20px;
+    background-color: purple;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 1px black;
+}
+
+table td, table th {
+    border: 5px solid mediumpurple;
+    font-family: cursive;
+    padding: 30px;
+}
+table tr:first-child th {
+  border-top: 0;
+}
+table tr:last-child th {
+  border-bottom: 0;
+}
+table tr th:first-child {
+  border-left: 0;
+}
+table tr th:last-child {
+  border-right: 0;
+}
+
+table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  margin-left: auto;
+  /* box-shadow: 5px 5px 10px -5px black; */
+  margin-right: auto;
+  /* top:40%; */
+  left:41%;
+  position: unset;
+  width: 18%;
+  border: 0;
+}
+
+th:hover{
+    background-color: lightgrey;
+    cursor: pointer;
+}
+</style>
+<style>
+    /* Popup box BEGIN */
+.hover_bkgr_fricc{
+    background:rgba(0,0,0,.4);
+    /* cursor:pointer; */
+    display:block;
+    height:100%;
+    position:fixed;
+    text-align:center;
+    top:0;
+    width:100%;
+    z-index:10000;
+}
+.hover_bkgr_fricc .helper{
+    display:inline-block;
+    height:100%;
+    vertical-align:middle;
+}
+.hover_bkgr_fricc > div {
+    background-color: #fff;
+    box-shadow: 10px 10px 60px #555;
+    display: inline-block;
+    height: auto;
+    max-width: 551px;
+    min-height: 100px;
+    vertical-align: middle;
+    width: 60%;
+    position: relative;
+    border-radius: 8px;
+    padding: 15px 5%;
+}
+.popupCloseButton {
+    background-color: #fff;
+    border: 3px solid #999;
+    border-radius: 50px;
+    cursor: pointer;
+    display: inline-block;
+    font-family: arial;
+    font-weight: bold;
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 25px;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+}
+.popupCloseButton:hover {
+    background-color: #ccc;
+}
+.trigger_popup_fricc {
+    cursor: pointer;
+    font-size: 20px;
+    margin: 20px;
+    display: inline-block;
+    font-weight: bold;
+}
+/* Popup box BEGIN */
+</style>
+
+<script>
+
+    function myfun(obj) {
+        document.getElementById('comp').style.visibility='hidden';
+        if(obj.textContent == ''){
+            obj.textContent = 'O'
+            mycomp();
+        }
+        else{
+            alert("Box taken, try another box!")
+        }
+    }
+
+    function mycomp(){
+        // check for completion
+        var table = document.getElementById('tictactoetab').textContent;
+        table = table.replace(/(\r\n|\n|\r)/gm, "");
+        table = table.replace(/ /g,'');
+        var flag = 0;
+
+
+
+
+        // check winning...
+        if((document.getElementById('r1c1').textContent == 'O' & document.getElementById('r1c2').textContent == 'O' & document.getElementById('r1c3').textContent == 'O') || (document.getElementById('r2c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r2c3').textContent == 'O') || (document.getElementById('r3c1').textContent == 'O' & document.getElementById('r3c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O') || (document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O') || (document.getElementById('r3c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r1c3').textContent == 'O') || (document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c1').textContent == 'O' & document.getElementById('r3c1').textContent == 'O') || (document.getElementById('r1c2').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c2').textContent == 'O') || (document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c3').textContent == 'O' & document.getElementById('r3c3').textContent == 'O')){
+            flag=1;
+            userwon();
+            // setTimeout(location.reload.bind(location), 1000);
+        }
+
+        
+        // Winning move
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r1c2').textContent == 'X' & document.getElementById('r1c3').textContent == ''){
+            document.getElementById('r1c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c1').textContent == 'X' & document.getElementById('r3c1').textContent == ''){
+            document.getElementById('r3c1').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r1c2').textContent == '' & document.getElementById('r1c3').textContent == 'X'){
+            document.getElementById('r1c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r2c2').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c1').textContent == '' & document.getElementById('r3c1').textContent == 'X'){
+            document.getElementById('r2c1').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r1c2').textContent == 'X' & document.getElementById('r1c3').textContent == 'X'){
+            document.getElementById('r1c1').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r1c1').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r2c1').textContent == 'X' & document.getElementById('r3c1').textContent == 'X'){
+            document.getElementById('r1c1').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c2').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c2').textContent == ''){
+            document.getElementById('r3c2').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c2').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c2').textContent == 'X'){
+            document.getElementById('r2c2').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c2').textContent == '' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c2').textContent == 'X'){
+            document.getElementById('r1c2').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c3').textContent == 'X' & document.getElementById('r2c3').textContent == 'X' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c3').textContent == 'X' & document.getElementById('r2c3').textContent == '' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r2c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c3').textContent == '' & document.getElementById('r2c3').textContent == 'X' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r1c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c3').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c1').textContent == ''){
+            document.getElementById('r3c1').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c3').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c1').textContent == 'X'){
+            document.getElementById('r2c2').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r1c3').textContent == '' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c1').textContent == 'X'){
+            document.getElementById('r1c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r2c1').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r2c3').textContent == ''){
+            document.getElementById('r2c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r2c1').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r2c3').textContent == 'X'){
+            document.getElementById('r2c2').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r2c1').textContent == '' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r2c3').textContent == 'X'){
+            document.getElementById('r2c1').textContent = 'X'; flag=1; timefunction();
+            
+        }
+
+        else if(document.getElementById('r3c1').textContent == 'X' & document.getElementById('r3c2').textContent == 'X' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r3c1').textContent == 'X' & document.getElementById('r3c2').textContent == '' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r3c2').textContent = 'X'; flag=1; timefunction();
+            
+        }
+        else if(document.getElementById('r3c1').textContent == '' & document.getElementById('r3c2').textContent == 'X' & document.getElementById('r3c3').textContent == 'X'){
+            document.getElementById('r3c1').textContent = 'X'; flag=1; timefunction();
+            
+        }
+
+
+        // blocking move
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r1c2').textContent == 'O' & document.getElementById('r1c3').textContent == ''){
+            document.getElementById('r1c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c1').textContent == 'O' & document.getElementById('r3c1').textContent == ''){
+            document.getElementById('r3c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r1c2').textContent == '' & document.getElementById('r1c3').textContent == 'O'){
+            document.getElementById('r1c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r2c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == 'O' & document.getElementById('r2c1').textContent == '' & document.getElementById('r3c1').textContent == 'O'){
+            document.getElementById('r2c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r1c2').textContent == 'O' & document.getElementById('r1c3').textContent == 'O'){
+            document.getElementById('r1c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r1c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c1').textContent == '' & document.getElementById('r2c1').textContent == 'O' & document.getElementById('r3c1').textContent == 'O'){
+            document.getElementById('r1c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c2').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c2').textContent == ''){
+            document.getElementById('r3c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c2').textContent == 'O' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c2').textContent == 'O'){
+            document.getElementById('r2c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c2').textContent == '' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c2').textContent == 'O'){
+            document.getElementById('r1c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c3').textContent == 'O' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c3').textContent == '' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r2c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == '' & document.getElementById('r2c3').textContent == 'O' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r1c3').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c1').textContent == ''){
+            document.getElementById('r3c1').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == 'O' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c1').textContent == 'O'){
+            document.getElementById('r2c2').textContent = 'X'
+        }
+        else if(document.getElementById('r1c3').textContent == '' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r3c1').textContent == 'O'){
+            document.getElementById('r1c3').textContent = 'X'
+        }
+        else if(document.getElementById('r2c1').textContent == 'O' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r2c3').textContent == ''){
+            document.getElementById('r2c3').textContent = 'X'
+        }
+        else if(document.getElementById('r2c1').textContent == 'O' & document.getElementById('r2c2').textContent == '' & document.getElementById('r2c3').textContent == 'O'){
+            document.getElementById('r2c2').textContent = 'X'
+        }
+        else if(document.getElementById('r2c1').textContent == '' & document.getElementById('r2c2').textContent == 'O' & document.getElementById('r2c3').textContent == 'O'){
+            document.getElementById('r2c1').textContent = 'X'
+        }
+
+        else if(document.getElementById('r3c1').textContent == 'O' & document.getElementById('r3c2').textContent == 'O' & document.getElementById('r3c3').textContent == ''){
+            document.getElementById('r3c3').textContent = 'X'
+        }
+        else if(document.getElementById('r3c1').textContent == 'O' & document.getElementById('r3c2').textContent == '' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r3c2').textContent = 'X'
+        }
+        else if(document.getElementById('r3c1').textContent == '' & document.getElementById('r3c2').textContent == 'O' & document.getElementById('r3c3').textContent == 'O'){
+            document.getElementById('r3c1').textContent = 'X'
+        }
+
+
+
+        else {
+            // Fill random
+            if(document.getElementById('r2c2').textContent == ''){
+                document.getElementById('r2c2').textContent = 'X'
+            }
+            else if(document.getElementById('r1c1').textContent == ''){
+                document.getElementById('r1c1').textContent = 'X'
+            }
+            else if(document.getElementById('r1c3').textContent == ''){
+                document.getElementById('r1c3').textContent = 'X'
+            }
+            else if(document.getElementById('r3c3').textContent == ''){
+                document.getElementById('r3c3').textContent = 'X'
+            }
+            else if(document.getElementById('r3c1').textContent == ''){
+                document.getElementById('r3c1').textContent = 'X'
+            }
+            else if(document.getElementById('r2c3').textContent == ''){
+                document.getElementById('r2c3').textContent = 'X'
+            }
+            else if(document.getElementById('r1c2').textContent == ''){
+                document.getElementById('r1c2').textContent = 'X'
+            }
+            else if(document.getElementById('r3c2').textContent == ''){
+                document.getElementById('r3c2').textContent = 'X'
+            }
+            else if(document.getElementById('r2c1').textContent == ''){
+                document.getElementById('r2c1').textContent = 'X'
+            }
+        }
+
+        var table = document.getElementById('tictactoetab').textContent
+        table = table.replace(/(\r\n|\n|\r)/gm, "");
+        table = table.replace(/ /g,'');
+
+
+        if(table.length == 9 & flag == 0){
+            drawfunction();
+            // setTimeout(location.reload.bind(location), 1000);
+        }
+
+
+    }
+
+
+
+</script>
+<script>
+
+function timefunction(){
+    setTimeout(function(){ alert("Computer Won!"); }, 2000);
+}
+
+function drawfunction(){
+    setTimeout(function(){ alert("It's a Draw! Let's play again...") }, 1000);
+}
+
+function userwon(){
+    setTimeout(function(){alert("You won!, Let's play again..."); }, 1000);
+}
+
+function funstart(){
+    $('.hover_bkgr_fricc').hide();
+    document.getElementById('comp').style.visibility='visible';
+    var list_random = [1,2];
+
+    var random = Math.floor(Math.random() * list_random.length);
+
+    if(random == 1){
+        document.getElementById('comp').textContent = "Computer starts first"
+        document.getElementById('r2c2').textContent = "X"
+    }
+    else{
+        document.getElementById('comp').textContent = "You start first"
+    }
+}
+
+function fncheck(){
+    if(document.getElementById('rules').style.display == 'block'){
+        document.getElementById('intro').style.display='none';
+        document.getElementById('rules').style.display='none';
+        document.getElementById('qn2').textContent='Thank you, Bye!';
+        document.getElementById('yesbtn1').style.cursor='not-allowed';
+        document.getElementById('yesbtn1').disabled=true;
+        document.getElementById('yesbtn1').style.backgroundColor='slategrey';
+        document.getElementById('yesbtn1').style.boxShadow='none';
+
+    }
+    else{
+        document.getElementById('intro').style.display='block';
+        document.getElementById('rules').style.display='block';
+        document.getElementById('qn1').style.display='none';
+        document.getElementById('qn2').style.fontWeight='bold';
+        document.getElementById('qn2').textContent='Shall we proceed now?';
+        document.getElementById('yesbtn1').style.cursor='pointer';
+        document.getElementById('yesbtn1').disabled=false;
+        document.getElementById('yesbtn1').style.backgroundColor='purple';
+        document.getElementById('yesbtn1').style.boxShadow='0px 0px 10px 1px black';
+        
+    }
+}
+
+
+function reload(){
+    document.getElementById('r1c1').textContent = '';
+    document.getElementById('r1c2').textContent = '';
+    document.getElementById('r1c3').textContent = '';
+    document.getElementById('r2c1').textContent = '';
+    document.getElementById('r2c2').textContent = '';
+    document.getElementById('r2c3').textContent = '';
+    document.getElementById('r3c1').textContent = '';
+    document.getElementById('r3c2').textContent = '';
+    document.getElementById('r3c3').textContent = '';
+    funstart();
+}
+
+</script>
+</head>
+
+<div class="main_body">
+<h1 id="title">Tic Tac Toe</h1>
+<p style="text-align: center; margin:25px;">Computer - X &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  You - O</p>
+<br />
+<p style="text-align: center; margin:25px;" id="comp"></p>
+
+<div class="hover_bkgr_fricc">
+    <span class="helper"></span>
+    <div>
+        <!-- <div class="popupCloseButton">&times;</div> -->
+        <p id="intro" style="padding-bottom: 15px; font-size: x-large;"><b>Welcome to Tic Tac Toe</b></p>
+        <p id="qn1" style="padding-bottom: 15px;"><b>Are you familiar with the rules?</b></p>
+        <div id="rules" style="display: none;text-align: justify;font-family: cursive;"><b>Instructions:</b>
+            <ul>
+                <li>The game is played on a grid that's 3 squares by 3 squares.</li>
+                <li>You are 'O', your friend (or the computer in this case) is 'X'. Players take turns putting their marks in empty squares.</li>
+                <li>The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.</li>
+                <li>When all 9 squares are full, the game is over.</li>
+            </ul>
+
+        </div>
+    <p id="qn2"></p>
+    <button id="yesbtn1" onclick="funstart()">Yes</button> 
+    <button id="nobtn" onclick="fncheck()">No</button>
+    </div>
+</div>
+
+<table id="tictactoetab">
+    <tr>
+      <th id="r1c1" onclick="myfun(this)"></th>
+      <th id="r1c2" onclick="myfun(this)"></th>
+      <th id="r1c3" onclick="myfun(this)"></th>
+    </tr>
+    <tr>
+        <th id="r2c1" onclick="myfun(this)"></th>
+        <th id="r2c2" onclick="myfun(this)"></th>
+        <th id="r2c3" onclick="myfun(this)"></th>
+    </tr>
+    <tr>
+        <th id="r3c1" onclick="myfun(this)"></th>
+        <th id="r3c2" onclick="myfun(this)"></th>
+        <th id="r3c3" onclick="myfun(this)"></th>
+    </tr>
+  </table>
+
+  <center><button onclick="reload()"> Reload</button></center>
+</div>
+
+</html>
+

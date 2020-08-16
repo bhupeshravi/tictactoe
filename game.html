@@ -416,7 +416,7 @@ function funstart(){
     var random = Math.floor(Math.random() * list_random.length);
 
     if(random == 1){
-        document.getElementById('comp').textContent = "Computer starts first"
+        document.getElementById('comp').textContent = "Computer started first"
         document.getElementById('r2c2').textContent = "X"
     }
     else{
@@ -472,27 +472,6 @@ function reload(){
 <br />
 <p style="text-align: center; margin:25px;" id="comp"></p>
 
-<div class="hover_bkgr_fricc">
-    <span class="helper"></span>
-    <div>
-        <!-- <div class="popupCloseButton">&times;</div> -->
-        <p id="intro" style="padding-bottom: 15px; font-size: x-large;"><b>Welcome to Tic Tac Toe</b></p>
-        <p id="qn1" style="padding-bottom: 15px;"><b>Are you familiar with the rules?</b></p>
-        <div id="rules" style="display: none;text-align: justify;font-family: cursive;"><b>Instructions:</b>
-            <ul>
-                <li>The game is played on a grid that's 3 squares by 3 squares.</li>
-                <li>You are 'O', your friend (or the computer in this case) is 'X'. Players take turns putting their marks in empty squares.</li>
-                <li>The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.</li>
-                <li>When all 9 squares are full, the game is over.</li>
-            </ul>
-
-        </div>
-    <p id="qn2"></p>
-    <button id="yesbtn1" onclick="funstart()">Yes</button> 
-    <button id="nobtn" onclick="fncheck()">No</button>
-    </div>
-</div>
-
 <table id="tictactoetab">
     <tr>
       <th id="r1c1" onclick="myfun(this)"></th>
@@ -512,6 +491,28 @@ function reload(){
   </table>
 
   <center><button onclick="reload()"> Reload</button></center>
+</div>
+
+
+<div class="hover_bkgr_fricc">
+    <span class="helper"></span>
+    <div>
+        <!-- <div class="popupCloseButton">&times;</div> -->
+        <p id="intro" style="padding-bottom: 15px; font-size: x-large;"><b>Welcome to Tic Tac Toe</b></p>
+        <p id="qn1" style="padding-bottom: 15px;"><b>Are you familiar with the rules?</b></p>
+        <div id="rules" style="display: none;text-align: justify;font-family: cursive;"><b>Instructions:</b>
+            <ul>
+                <li>The game is played on a grid that's 3 squares by 3 squares.</li>
+                <li>You are 'O', your friend (or the computer in this case) is 'X'. Players take turns putting their marks in empty squares.</li>
+                <li>The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.</li>
+                <li>When all 9 squares are full, the game is over.</li>
+            </ul>
+
+        </div>
+    <p id="qn2"></p>
+    <button id="yesbtn1" onclick="funstart()">Yes</button> 
+    <button id="nobtn" onclick="fncheck()">No</button>
+    </div>
 </div>
 
 </html>

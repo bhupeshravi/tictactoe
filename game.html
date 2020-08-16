@@ -132,13 +132,24 @@ th:hover{
 <script>
 
     function myfun(obj) {
-        document.getElementById('comp').style.visibility='hidden';
-        if(obj.textContent == ''){
-            obj.textContent = 'O'
-            mycomp();
+        var check_win = 0
+        if(document.getElementById('comp').textContent == "Computer Won! Let's play again"){
+            alert("Computer already won! Play new game")
+            check_win = 1
         }
-        else{
-            alert("Box taken, try another box!")
+        else if(document.getElementById('comp').textContent == "You won! Let's play again"){
+            alert("You already won! Play new game")
+            check_win = 1
+        }
+        if(check_win == 0){
+            document.getElementById('comp').style.visibility='hidden';
+            if(obj.textContent == ''){
+                obj.textContent = 'O'
+                mycomp();
+            }
+            else{
+                alert("Box taken, try another box!")
+            }
         }
     }
 
@@ -470,7 +481,7 @@ function reload(){
 <h1 id="title">Tic Tac Toe</h1>
 <p style="text-align: center; margin:25px;">Computer - X &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  You - O</p>
 <br />
-<p style="text-align: center; margin:25px;" id="comp"></p>
+<p style="text-align: center; margin:25px;font-size: x-large;" id="comp"></p>
 
 <table id="tictactoetab">
     <tr>

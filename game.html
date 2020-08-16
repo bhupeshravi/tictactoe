@@ -166,7 +166,9 @@ th:hover{
             
         }
         else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c2').textContent == 'X' & document.getElementById('r3c3').textContent == ''){
-            document.getElementById('r3c3').textContent = 'X'; flag=1; timefunction();
+            document.getElementById('r3c3').textContent = 'X'; flag=1;
+            // document.getElementById('r1c1').style.color=document.getElementById('r2c2').style.color=document.getElementById('r3c3').style.color='purple';
+            timefunction();
             
         }
         else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c1').textContent == 'X' & document.getElementById('r3c1').textContent == ''){
@@ -179,6 +181,7 @@ th:hover{
         }
         else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c2').textContent == '' & document.getElementById('r3c3').textContent == 'X'){
             document.getElementById('r2c2').textContent = 'X'; flag=1; timefunction();
+
             
         }
         else if(document.getElementById('r1c1').textContent == 'X' & document.getElementById('r2c1').textContent == '' & document.getElementById('r3c1').textContent == 'X'){
@@ -378,29 +381,36 @@ th:hover{
             // setTimeout(location.reload.bind(location), 1000);
         }
 
-
     }
-
-
 
 </script>
 <script>
 
 function timefunction(){
-    setTimeout(function(){ alert("Computer Won!"); }, 2000);
+    document.getElementById('comp').textContent = "Computer Won! Let's play again";
+    document.getElementById('comp').style.visibility='visible';
+    document.getElementById('comp').style.color='purple';
+    // setTimeout(function(){ alert("Computer Won! Let's play again"); }, 2000);
 }
 
 function drawfunction(){
-    setTimeout(function(){ alert("It's a Draw! Let's play again...") }, 1000);
+    document.getElementById('comp').textContent = "Game over! It's a Draw!";
+    document.getElementById('comp').style.visibility='visible';
+    document.getElementById('comp').style.color='purple';
+    // setTimeout(function(){ alert("Game over! It's a Draw!") }, 1000);
 }
 
 function userwon(){
-    setTimeout(function(){alert("You won!, Let's play again..."); }, 1000);
+    document.getElementById('comp').textContent = "You won! Let's play again";
+    document.getElementById('comp').style.visibility='visible';
+    document.getElementById('comp').style.color='purple';
+    // setTimeout(function(){alert("You won! Let's play again"); }, 1000);
 }
 
 function funstart(){
     $('.hover_bkgr_fricc').hide();
     document.getElementById('comp').style.visibility='visible';
+    document.getElementById('comp').style.color='black';
     var list_random = [1,2];
 
     var random = Math.floor(Math.random() * list_random.length);
